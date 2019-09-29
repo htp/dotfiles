@@ -1,0 +1,18 @@
+[alias]
+	b = branch
+	ci = commit
+	co = checkout
+	discard = checkout --
+	llog = log --graph --format='%C(auto,red)%h%C(auto,reset) %s %C(auto,green)%ar%C(auto,reset) %C(auto,blue)(%an)%C(auto,reset)'
+	nuke = !git reset --hard HEAD && git clean -dfx
+	st = status
+	unstage = reset HEAD
+[core]
+	editor = vim
+[diff]
+	algorithm = histogram
+[pull]
+	rebase = true
+[user]
+	name = Henry Phan
+	email = henry@henryphan.com
