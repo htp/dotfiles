@@ -56,6 +56,10 @@ ZSH_HIGHLIGHT_STYLES[unknown-token]='fg=1'
 
 # Perform work just before the prompt is displayed.
 precmd() {
+  # Set the terminal title.
+  echo -n "\e]0;${PWD}\a"
+
+  # Set vcs_info_msg_0_.
   vcs_info
 }
 
