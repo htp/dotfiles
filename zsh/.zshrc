@@ -29,7 +29,7 @@ typeset PROMPT=$'\n%(?.•.%F{red}• (%?%)%f) %# '
 typeset RPROMPT='$(prompt_pwd)${vcs_info_msg_0_}'
 
 # Set color for suggested command completions.
-typeset ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=8"
+typeset ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=8'
 
 # Set colors for command highlighting.
 typeset -A ZSH_HIGHLIGHT_STYLES
