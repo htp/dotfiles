@@ -9,10 +9,31 @@ compinit
 autoload -Uz vcs_info
 zstyle ':vcs_info:*' check-for-changes true
 zstyle ':vcs_info:*' enable git
-zstyle ':vcs_info:git:*' formats       ' %F{blue}%c%u(%b)%f'
-zstyle ':vcs_info:git:*' actionformats ' %F{blue}%c%u(%b|%a)%f'
+zstyle ':vcs_info:git:*' formats       ' %F{blue}%c%u(%b%m)%f'
+zstyle ':vcs_info:git:*' actionformats ' %F{blue}%c%u(%b|%a%m)%f'
 zstyle ':vcs_info:git:*' stagedstr     '%F{green}'
 zstyle ':vcs_info:git:*' unstagedstr   '%F{red}'
+
+zstyle ':vcs_info:git*+set-message:*' hooks git-ahead-behind
++vi-git-ahead-behind() {
+  typeset ahead_behind
+  typeset ahead
+  typeset behind
+
+  ahead_behind="$(command git rev-list --count --left-right HEAD...@{upstream} 2>/dev/null)"
+  ahead="${ahead_behind[(w)1]}"
+  behind="${ahead_behind[(w)2]}"
+
+  if [[ "${ahead}" -eq 0 ]] && [[ "${behind}" -eq 0 ]]; then
+    hook_com[misc]=""
+  elif [[ "${ahead}" -gt 0 ]] && [[ "${behind}" -eq 0 ]]; then
+    hook_com[misc]=" ${ahead}↑"
+  elif [[ "${ahead}" -eq 0 ]] && [[ "${behind}" -gt 0 ]]; then
+    hook_com[misc]=" ${behind}↓"
+  elif [[ "${ahead}" -gt 0 ]] && [[ "${behind}" -gt 0 ]]; then
+    hook_com[misc]=" ${ahead}↑ ${behind}↓"
+  fi
+}
 
 # Treat #, ~, and ^ as parts of patterns.
 setopt EXTENDED_GLOB
