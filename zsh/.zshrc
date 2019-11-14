@@ -92,7 +92,14 @@ prompt_pwd() {
   echo "${pwd//(#b)([^\/]##)\//${match[1][1,1]}/}"
 }
 
-# Load plugins if available. Assumes plugins were installed by Homebrew.
+# Load chruby files when available.
+for file in chruby auto; do
+  if [[ -f "/usr/local/opt/chruby/share/chruby/${file}.sh" ]]; then
+    source "/usr/local/opt/chruby/share/chruby/${file}.sh"
+  fi
+done
+
+# Load plugins when available. Assumes plugins were installed by Homebrew.
 for plugin in zsh-autosuggestions \
               zsh-history-substring-search \
               zsh-syntax-highlighting; do
