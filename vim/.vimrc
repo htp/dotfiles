@@ -44,6 +44,11 @@ set relativenumber
 " Show the cursor line and cursor position.
 set ruler
 
+" Enable fzf integration when available.
+if isdirectory("/usr/local/opt/fzf")
+  set runtimepath+=/usr/local/opt/fzf
+endif
+
 " Indent using two spaces. (See also: softtabstop, tabstop.)
 set shiftwidth=2
 
