@@ -38,12 +38,35 @@ zstyle ':vcs_info:git*+set-message:*' hooks git-ahead-behind
 # Treat #, ~, and ^ as parts of patterns.
 setopt EXTENDED_GLOB
 
+# Don't save consecutive duplicate commands to the history file.
+setopt HIST_IGNORE_DUPS
+
+# Don't record commands that start with a space.
+setopt HIST_IGNORE_SPACE
+
+# Remove superfluous blanks before recording commands.
+setopt HIST_REDUCE_BLANKS
+
+# Don't execute immediately after expanding history.
+setopt HIST_VERIFY
+
+# Write to the history file immediately (not when the shell exits).
+setopt INC_APPEND_HISTORY
+
 # Treat `%` specially in prompt expansion.
 setopt PROMPT_PERCENT
 
 # Perform parameter expansion, command substitution,and arithmetic expansion
 # in prompts.
 setopt PROMPT_SUBST
+
+# Share history between all sessions.
+setopt SHARE_HISTORY
+
+# Configure history.
+typeset HISTFILE="${HOME}/.history"
+typeset HISTSIZE=65536
+typeset SAVEHIST=65536
 
 # Set left and right prompts.
 typeset PROMPT=$'\n%(?.•.%F{red}• (%?%)%f) %# '
