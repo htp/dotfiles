@@ -56,7 +56,7 @@ setopt INC_APPEND_HISTORY
 # Treat `%` specially in prompt expansion.
 setopt PROMPT_PERCENT
 
-# Perform parameter expansion, command substitution,and arithmetic expansion
+# Perform parameter expansion, command substitution, and arithmetic expansion
 # in prompts.
 setopt PROMPT_SUBST
 
@@ -69,8 +69,8 @@ typeset HISTSIZE=65536
 typeset SAVEHIST=65536
 
 # Set left and right prompts.
-typeset PROMPT=$'\n%(?.•.%F{red}• (%?%)%f) %# '
-typeset RPROMPT='$(prompt_pwd)${vcs_info_msg_0_}'
+typeset PROMPT=$'\n%(?.$(prompt_icon).%F{red}$(prompt_icon) (%?%)%f) %# '
+typeset RPROMPT='$(prompt_pwd)${vcs_info_msg_0_}$(prompt_hostname)'
 
 # Set color for suggested command completions.
 typeset ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=8'
@@ -105,6 +105,25 @@ precmd() {
 
   # Set vcs_info_msg_0_.
   vcs_info
+}
+
+# Print the hostname when running in an SSH session; otherwise, print nothing.
+prompt_hostname() {
+  if [[ -n "${SSH_CONNECTION}" ]]; then
+    echo " (%m%)"
+  else
+    echo ""
+  fi
+}
+
+# Print the place of interest character when running in an SSH session;
+# otherwise, print a bullet.
+prompt_icon() {
+  if [[ -n "${SSH_CONNECTION}" ]]; then
+    echo "⌘ "
+  else
+    echo "•"
+  fi
 }
 
 # Print the current working directory, with ${HOME} replaced by ~,
