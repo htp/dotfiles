@@ -3,9 +3,12 @@
 	ci = commit
 	co = checkout
 	discard = checkout --
+  ignore = update-index --assume-unchanged
+  ignored = !git ls-files -v | grep '^[[:lower:]]' | cut -c 3-
 	llog = log --graph --format='%C(auto,red)%h%C(auto,reset) %s %C(auto,green)%ar%C(auto,reset) %C(auto,blue)(%an)%C(auto,reset)'
 	nuke = !git reset --hard HEAD && git clean -dfx
 	st = status
+  unignore = update-index --no-assume-unchanged
 	unstage = reset HEAD
 [core]
 	editor = vim
