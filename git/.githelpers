@@ -6,13 +6,13 @@ llog() {
   local hash="%C(red)%h%C(reset)"
   local author="%C(blue)%an%C(reset)"
   local time="%C(green)%ar%C(reset)"
-  local subject="%<(80,trunc)%s"
+  local subject="%<(120,trunc)%s"
   local refs="%C(magenta)%d%C(reset)"
   local separator=$'\037'
 
   local format="${hash}${separator}${author}${separator}${time}${separator}${subject}${refs}"
 
-  git log --color --format="tformat:${format}" --since="1 year ago" "$@" \
+  git log --color --format="tformat:${format}" "$@" \
     | tr -s " "  \
     | column -t -s "${separator}" \
     | less --chop-long-lines --no-init --quit-if-one-screen --RAW-CONTROL-CHARS
