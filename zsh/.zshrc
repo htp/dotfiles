@@ -110,7 +110,7 @@ precmd() {
 # Print the hostname when running in an SSH session; otherwise, print nothing.
 prompt_hostname() {
   if [[ -n "${SSH_CONNECTION}" ]]; then
-    echo " (%m%)"
+    echo " %F{magenta}(%m%)%f"
   else
     echo ""
   fi
@@ -119,11 +119,7 @@ prompt_hostname() {
 # Print the place of interest character when running in an SSH session;
 # otherwise, print a bullet.
 prompt_icon() {
-  if [[ -n "${SSH_CONNECTION}" ]]; then
-    echo "⌘ "
-  else
-    echo "•"
-  fi
+  echo "•"
 }
 
 # Print the current working directory, with ${HOME} replaced by ~,
