@@ -137,6 +137,11 @@ for file in chruby auto; do
   fi
 done
 
+# Load pyenv shims and completion when available.
+if command -v pyenv 1>/dev/null 2>&1; then
+  eval "$(pyenv init -)"
+fi
+
 # Load plugins when available. Assumes plugins were installed by Homebrew.
 for plugin in zsh-autosuggestions \
               zsh-history-substring-search \
