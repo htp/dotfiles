@@ -69,8 +69,8 @@ typeset HISTSIZE=65536
 typeset SAVEHIST=65536
 
 # Set left and right prompts.
-typeset PROMPT=$'\n%(?.$(prompt_icon).%F{red}$(prompt_icon) (%?%)%f) %# '
-typeset RPROMPT='$(prompt_pwd)${vcs_info_msg_0_}$(prompt_hostname)'
+typeset PROMPT=$'\n%(?.$(htp-prompt-icon).%F{red}$(htp-prompt-icon) (%?%)%f) %# '
+typeset RPROMPT='$(htp-prompt-pwd)${vcs_info_msg_0_}$(htp-prompt-hostname)'
 
 # Set color for suggested command completions.
 typeset ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=8'
@@ -99,7 +99,7 @@ ZSH_HIGHLIGHT_STYLES[reserved-word]='fg=0,bold'
 ZSH_HIGHLIGHT_STYLES[unknown-token]='fg=1'
 
 # Perform work just before the prompt is displayed.
-precmd() {
+htp-precmd() {
   # Set the terminal title.
   echo -n "\e]0;${PWD}\a"
 
@@ -107,8 +107,13 @@ precmd() {
   vcs_info
 }
 
+typeset -g -a precmd_functions
+if [ -z ${precmd_functions[(r)htp-precmd]} ]; then
+  precmd_functions=(${precmd_functions} htp-precmd);
+fi
+
 # Print the hostname when running in an SSH session; otherwise, print nothing.
-prompt_hostname() {
+htp-prompt-hostname() {
   if [[ -n "${SSH_CONNECTION}" ]]; then
     echo " %F{magenta}(%m%)%f"
   else
@@ -118,14 +123,14 @@ prompt_hostname() {
 
 # Print the place of interest character when running in an SSH session;
 # otherwise, print a bullet.
-prompt_icon() {
+htp-prompt-icon() {
   echo "•"
 }
 
 # Print the current working directory, with ${HOME} replaced by ~,
 # and with all but the last path component replaced by their respective
-# first letters. Like Fish's prompt_pwd.
-prompt_pwd() {
+# first letters. Like Fish's htp-prompt-pwd.
+htp-prompt-pwd() {
   local pwd="${PWD/#${HOME}/~}"
   echo "${pwd//(#b)([^\/]##)\//${match[1][1,1]}/}"
 }
