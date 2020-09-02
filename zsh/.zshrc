@@ -131,22 +131,28 @@ prompt_pwd() {
 }
 
 # Load chruby files when available.
-for file in chruby auto; do
-  if [[ -f "/usr/local/opt/chruby/share/chruby/${file}.sh" ]]; then
-    source "/usr/local/opt/chruby/share/chruby/${file}.sh"
-  fi
-done
+if command -v brew 1>/dev/null 2>&1; then
+  for file in chruby auto; do
+    local file_path="$(brew --prefix)/opt/chruby/share/chruby/${file}.sh"
+
+    if [[ -f "${file_path}" ]]; then
+      source "${file_path}"
+    fi
+  done
+fi
 
 # Load pyenv shims and completion when available.
 if command -v pyenv 1>/dev/null 2>&1; then
   eval "$(pyenv init -)"
 fi
 
-# Load plugins when available. Assumes plugins were installed by Homebrew.
-for plugin in zsh-autosuggestions \
-              zsh-history-substring-search \
-              zsh-syntax-highlighting; do
-  if [[ -f "/usr/local/share/${plugin}/${plugin}.zsh" ]]; then
-    source "/usr/local/share/${plugin}/${plugin}.zsh"
-  fi
-done
+# Load plugins when available.
+if command -v brew 1>/dev/null 2>&1; then
+  for plugin in zsh-autosuggestions zsh-history-substring-search zsh-syntax-highlighting; do
+    local plugin_path="$(brew --prefix)/share/${plugin}/${plugin}.zsh"
+
+    if [[ -f "${plugin_path}" ]]; then
+      source "${plugin_path}"
+    fi
+  done
+fi
