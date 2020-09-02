@@ -115,7 +115,7 @@ fi
 # Print the hostname when running in an SSH session; otherwise, print nothing.
 htp-prompt-hostname() {
   if [[ -n "${SSH_CONNECTION}" ]]; then
-    echo " %F{magenta}(%m%)%f"
+    echo " %F{white}%K{red}(%m%)%k%f"
   else
     echo ""
   fi
