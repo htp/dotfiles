@@ -1,0 +1,2 @@
+# Ignore tmux environment saves.
+tmux/.tmux/resurrect/
