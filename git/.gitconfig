@@ -2,11 +2,11 @@
 	b = branch
 	ci = commit
 	co = checkout
+	demolish = !git reset --hard HEAD && git clean -dfx
 	discard = checkout --
 	ignore = update-index --assume-unchanged
 	ignored = !git ls-files -v | grep '^[[:lower:]]' | cut -c 3-
 	llog = !source "~/.githelpers" && llog
-	nuke = !git reset --hard HEAD && git clean -dfx
 	st = status
 	unignore = update-index --no-assume-unchanged
 	unstage = reset HEAD
@@ -14,6 +14,8 @@
 	editor = vim
 [diff]
 	algorithm = histogram
+[init]
+	defaultBranch = main
 [pull]
 	rebase = true
 [user]
