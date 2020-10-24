@@ -2,14 +2,12 @@
 	b = branch
 	ci = commit
 	co = checkout
-	discard = checkout --
 	ignore = update-index --assume-unchanged
 	ignored = !git ls-files -v | grep '^[[:lower:]]' | cut -c 3-
 	llog = !source "~/.githelpers" && llog
 	restart = !git reset --hard HEAD && git clean -dfx
 	st = status
 	unignore = update-index --no-assume-unchanged
-	unstage = reset HEAD
 [core]
 	editor = vim
 [diff]
