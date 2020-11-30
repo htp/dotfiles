@@ -1,4 +1,10 @@
-# Add Homebrew to the path if available.
-if [ -d "/opt/brew" ]; then
-  export PATH="/opt/brew/bin:${PATH}"
-fi
+# Add directories to the path if available.
+# Directories listed later appear earler in the path.
+typeset -a directories=(
+  "/opt/brew/bin"
+  "${HOME}/bin"
+)
+
+for directory in "${directories[@]}"; do
+  export PATH="${directory}:${PATH}"
+done
